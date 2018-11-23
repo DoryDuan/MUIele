@@ -7,29 +7,54 @@
 		<title></title>
 		<script src="js/mui.min.js"></script>
 		<link href="css/mui.min.css" rel="stylesheet" />
-		<script type="text/javascript" charset="utf-8">
-			mui.init();
-		</script>
+		<link href="css/iconfont.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
 	</head>
 
 	<body>
+		<!--<nav class="mui-bar mui-bar-tab">
+		    <a class="mui-tab-item mui-active">
+		        <span class="mui-icon mui-icon-home"></span>
+		        <span class="mui-tab-label">首页</span>
+		    </a>
+		    <a class="mui-tab-item">
+		        <span class="mui-icon mui-icon-phone"></span>
+		        <span class="mui-tab-label">电话</span>
+		    </a>
+		    <a class="mui-tab-item">
+		        <span class="mui-icon mui-icon-email"></span>
+		        <span class="mui-tab-label">邮件</span>
+		    </a>
+		    <a class="mui-tab-item">
+		        <span class="mui-icon mui-icon-gear"></span>
+		        <span class="mui-tab-label">设置</span>
+		    </a>
+		</nav>-->
 		<nav class="mui-bar mui-bar-tab">
-			<a id="defaultTab" class="mui-tab-item mui-active" href="a.html">
-				<span class="mui-icon mui-icon-videocam"></span>
-				<span class="mui-tab-label">外面</span>
+			<a id="defaultTab" class="mui-tab-item mui-active" href="takeaway.html">
+				<span class="mui-icon iconfont icon-waimai-"></span>
+				<span class="mui-tab-label">外卖</span>
 			</a>
-			<a class="mui-tab-item" href="b.html">
-				<span class="mui-icon mui-icon-chatboxes"><span style="display: none;" class="mui-badge">1</span></span>
+			<a class="mui-tab-item" href="order.html">
+				<span class="mui-icon iconfont icon-weibiaoti-"><span style="display: none;" class="mui-badge">1</span></span>
 				<span class="mui-tab-label">订单</span>
 			</a>
-			<a class="mui-tab-item" href="c.html">
-				<span class="mui-icon mui-icon-home"></span>
+			<a class="mui-tab-item" href="discover.html">
+				<span class="mui-icon iconfont icon-faxian"></span>
 				<span class="mui-tab-label">发现</span>
 			</a>
-			<a class="mui-tab-item" href="c.html">
-				<span class="mui-icon mui-icon-home"></span>
+			<a class="mui-tab-item" href="home.html">
+				<span class="mui-icon iconfont icon-wode"></span>
 				<span class="mui-tab-label">我的</span>
 			</a>
 		</nav>
+		<!--引入castapp.js-->
+		<script type="text/javascript" src="js/castapp.js"></script>
+		<script type="text/javascript">
+			//初始化
+			castapp.init();
+			var pathArray = ['takeaway.html','order.html','discover.html','home.html'];
+			castapp.tabBar(pathArray);
+		</script>
 	</body>
 </html>
