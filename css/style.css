@@ -2,9 +2,49 @@
 	color:#ff6000;
 	font-size: 13px;
 }
+.o-m-text{
+	color:#ff6000;
+	font-size: 15px;
+}
+.o-b-text{
+	color:#ff6000;
+	font-size: 20px;
+}
+.gr-b-text{
+	color:#07C167;
+	font-size: 20px;
+}
+.gr-s-text{
+	color:#07C167;
+	font-size: 13px;
+}
 .g-s-text{
 	color:#999;
 	font-size: 13px;
+}
+.dg-s-text{
+	color:#666;
+	font-size: 13px;
+}
+.d-b-tex{
+	color:#333;
+	font-size: 20px;
+}
+.d-m-text{
+	color:#333;
+	font-size: 15px;
+}
+.d-s-text{
+	color:#333;
+	font-size: 13px;
+}
+.b-s-text{
+	color:#fff;
+	font-size: 13px;
+}
+.b-m-text{
+	color:#fff;
+	font-size: 15px;
 }
 .mui-bar-tab .mui-tab-item.mui-active{
 	color:#3492E9;
@@ -21,17 +61,32 @@
 .public-margin-top{
 	margin-top: 20px;
 }
+/*通用蓝色按钮*/
+.public-b-btn{
+	background-color: #3199E8;
+	border: none;
+	margin: 0 auto;
+	color:#fff;
+}
+/*通用绿色按钮*/
+.public-g-btn{
+	background-color: #55D075;
+	border: none;
+	margin: 0 auto;
+	color:#fff;
+}
+/*通用橙色按钮*/
+.public-o-btn{
+	background-color: #ff6000;
+	border: none;
+	margin: 0 auto;
+	color:#FD3B3D;
+	color:#fff;
+}
 /*改变placeholder文字颜色*/
 /*.mui-input-row input::-webkit-input-placeholder{
 	color:red
 }*/
-/*通用绿色按钮*/
-.public-g-btn{
-	background-color: #55D075;
-	border: 1px solid #55D075;
-	margin: 20px auto;
-	display: block;
-}
 .btn-block{
 	width: 100%;
 	font-size: 18px;
@@ -51,13 +106,7 @@
 	height: 26px;
 	line-height: 12px;
 }
-/*通用蓝色按钮*/
-.public-b-btn{
-	background-color: #3199E8;
-	border: 1px solid #3199E8;
-	margin: 20px auto;
-	display: block;
-}
+
 /*外卖页面*/
 .wm-search{
 	background-color: #3492E9;
@@ -193,29 +242,33 @@
 	border-bottom: 1px solid #F0F0F0;
 }
 .wm-list .wm-list-div .wm-list-div-l{
-	float: left;
-	padding-right: 10px;
+	flex:0 0 80px;
 }
 .wm-list .wm-list-div .wm-list-div-l img{
-	width: 60px;
+	width: 80px;
 }
 .wm-list .wm-list-div .wm-list-div-r{
 	flex: 1;
+	padding-left: 10px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 }
 .wm-list .wm-list-div .wm-list-div-r .wm-list-div-r-o{
 	overflow: hidden;
+	display: flex;
 }
 .wm-list .wm-list-div .wm-list-div-r .wm-list-div-r-o .wm-list-div-r-o-l{
-	float:left;
+	/*float:left;*/
+	flex: 1;
+	width: 0;
 	font-size: 18px;
 	color: #333;
 	font-weight: bold;
+	padding-right: 5px;
 }
 .wm-list .wm-list-div .wm-list-div-r .wm-list-div-r-o .wm-list-div-r-o-r{
-	float: right;
+	/*float: right;*/
 	color:#666;
 	font-size: 13px;
 }
@@ -243,4 +296,211 @@
 }
 .wm-list .wm-list-div .wm-list-div-r .wm-list-div-r-t .wm-list-div-r-t-r{
 	float:right;
+}
+/*订单*/
+.dd-box{
+	text-align: center;
+}
+.dd-box img{
+	width: 60%;
+}
+.dd-box h4{
+	color:#6a6a6a;
+	font-weight: 400;
+}
+.dd-box button {
+	padding:6px 22px;
+}
+/*我的*/
+.home-bar{
+	-webkit-box-shadow:0 0 0;
+	box-shadow: 0 0 0;
+}
+.home-div .home-dev-top{
+	background-color: #3492E9;
+	color:#fff;
+	padding:20px;
+	display: flex;
+	justify-content: space-between;
+}
+.home-div .home-dev-top .home-dev-top-l{
+	display: flex;
+}
+.home-div .home-dev-top .home-dev-top-l .home-dev-top-phone{
+	font-size: 18px;
+    vertical-align: middle;
+    margin-top: 1px;
+}
+
+.home-div .home-dev-top .home-dev-top-l img{
+	width:60px;
+	border-radius: 50%;
+	margin-right:10px;
+}
+.home-div .home-dev-top .home-dev-top-l .home-dev-top-l-info{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+.home-div .home-dev-top .home-dev-top-r{
+	align-self: center;
+}
+.home-money{
+	display: flex;
+	background: #fff;
+}
+.home-money .home-money-wrap{
+	flex: 1;
+	text-align: center;
+	padding: 15px 10px;
+}
+.home-money .home-money-wrap:nth-child(2){
+	border-right: 1px solid #f0f0f0;
+	border-left: 1px solid #f0f0f0;
+}
+.home-money .home-money-wrap span.mui-icon{
+	border-radius: 50%;
+	padding: 5px;
+	margin-bottom: 5px;
+	color:#fff;
+	font-size: 15px;
+}
+.home-money .home-money-wrap:nth-child(1) span.mui-icon{
+	background: #F9891B;
+}
+.home-money .home-money-wrap:nth-child(2) span.mui-icon{
+	background: #FD3B3D;
+}
+.home-money .home-money-wrap:nth-child(3) span.mui-icon{
+	background: #07C167;
+}
+.home-money .home-money-wrap p{
+	font-weight: 700;
+	margin-bottom: 0px;
+}
+.home-list ul{
+	margin-top: 15px;
+}
+.home-list .list-l-icon{
+	margin-right: 5px;
+	font-size: 22px;
+	color:rgb(74, 165, 240);
+}
+/*设置*/
+.loginout-btn-wrap{
+	padding: 0 15px;
+}
+.loginout-btn{
+	width:100%;
+}
+/*用户信息*/
+.user-info .user-img{
+	width:30px;
+	height: 30px;
+	border-radius: 50%;
+	margin-right: 20px;
+}
+/*我的余额*/
+.ye-div{
+	background-color: #3492E9;
+	padding:5px;
+}
+.ye-bar{
+	box-shadow: 0 0 0;
+	-webkit-box-shadow: 0 0 0;
+}
+.ye-div-b{
+	background: #fff;
+	border-radius: 3px;
+	padding: 10px;
+}
+.ye-btn-wrap{
+	display: flex;
+	margin-top: 10px;
+}
+.ye-btn-wrap button{
+	flex: 1;
+}
+.ye-btn-wrap button:nth-child(1){
+	margin-right: 10px;
+}
+.ye-div-m{
+	margin-top: 15px;
+}
+.ye-div-m > p{
+	padding-left: 10px;
+}
+.ye-div-m .ye-div-m-div{
+	background: #fff;
+	padding:20px 10px;
+	text-align: center;
+}
+.ye-div-m .ye-div-m-div span{
+	font-size: 25px;
+	border: 1px solid #999;
+	border-radius: 50%;
+	padding: 5px;
+	color:#999;
+}
+.ye-div-m .ye-div-m-div h5{
+	margin-top: 20px;
+}
+.ye-div-b-div{
+	background: #fff;
+	padding: 10px;
+	
+}
+.ye-div-m .ye-div-b-div>div{
+	display: flex;
+	justify-content: space-between;
+	line-height: 24px;
+}
+.ye-div-m .ye-div-b-div>div span{
+	color:#333;
+}
+.ye-div-m .ye-div-b-div>div span:nth-child(1){
+	font-size: 14px;
+}
+.ye-div-m .ye-div-b-div .ye-div-b-div-o span:nth-child(2){
+	font-size: 13px;
+	color:#999;
+}
+.ye-div-m .ye-div-b-div .ye-div-b-div-t span:nth-child(2){
+	font-size: 13px;
+	color:#55D075;
+}
+/*充值*/
+.rechange-list{
+	display: flex;
+	justify-content: space-between;
+}
+.rechange-list span:nth-child(2){
+	margin-right: 20px;
+}
+/*提现*/
+.withdrawal-inf{
+	background: #fff;
+	padding: 10px 10px 0 10px;
+}
+.withdrawal-inf input{
+	height: 35px;
+	background: #F2F2F2;
+	font-size: 15px;
+}
+.withdrawal-sm{
+	margin: 10px 0;
+	background: #fff;
+	padding: 10px;
+}
+.withdrawal-sm h4{
+	font-size: 14px;
+	font-weight: normal;
+}
+.withdrawal-sm p{
+	font-size: 13px;
+}
+.withdrawal-wrap button{
+	margin: 20px auto;
+	display: block;
+	padding:6px 30px;
 }
