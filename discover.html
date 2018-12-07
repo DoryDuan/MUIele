@@ -11,12 +11,91 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">发现</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">发现</h1>
 		</header>
+		<div class="mui-content discover-div">
+			<div id="slider" class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="images/3.webp">
+						</a>
+					</div>
+					<!-- 第一张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="images/1.webp">
+						</a>
+					</div>
+					<!-- 第二张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="images/2.webp">
+						</a>
+					</div>
+					<!-- 第三张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="images/3.webp">
+						</a>
+					</div>
+					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="images/1.webp">
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
+			<div class="discover-div-jf">
+				<p>我的积分<span class="o-b-text">0</span>分</p>
+			</div>
+			<div>
+				<div class="discover-div-b-wrap">
+					<div class="discover-div-b">
+						<h4>梦幻iPhone X玫瑰金16G</h4>
+						<p>年度旗舰，值得拥有！</p>
+						<p><span class="o-b-text" style="margin-right: 5px;">199</span>积分</p>
+						<img src="images/d1.webp" alt="" />
+					</div>
+					<div class="discover-div-b">
+						<h4>梦幻iPhone X玫瑰金16G</h4>
+						<p>年度旗舰，值得拥有！</p>
+						<p><span class="o-b-text" style="margin-right: 5px;">199</span>积分</p>
+						<img src="images/d1.webp" alt="" />
+					</div>
+				</div>
+				<div class="discover-div-b-wrap">
+					<div class="discover-div-b">
+						<h4>梦幻iPhone X玫瑰金16G</h4>
+						<p>年度旗舰，值得拥有！</p>
+						<p><span class="o-b-text" style="margin-right: 5px;">199</span>积分</p>
+						<img src="images/d1.webp" alt="" />
+					</div>
+					<div class="discover-div-b">
+						<h4>梦幻iPhone X玫瑰金16G</h4>
+						<p>年度旗舰，值得拥有！</p>
+						<p><span class="o-b-text" style="margin-right: 5px;">199</span>积分</p>
+						<img src="images/d1.webp" alt="" />
+					</div>
+				</div>
+			</div>
+		</div>
 		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/castapp.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			//()可填参数true(ios状态栏颜色为黑色文字),false(ios状态栏颜色为白色文字)
+			castapp.init(false);
+			mui('.mui-slider').slider({
+				interval: 3000 //自动轮播周期 默认0，这里3s
+			});
 		</script>
 	</body>
 

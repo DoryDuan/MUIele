@@ -11,22 +11,42 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">订单</h1>
+			<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+			<h1 class="mui-title">订单</h1>
 		</header>
 		<div class="mui-content">
 			<!--未登录的页面-->
-		    <!--<div class="dd-box">
+			<!--<div class="dd-box">
 		    	<img src="images/order.png" alt="" />
 		    	<h4>登录后查看外卖订单</h4>
 		    	<button class="public-g-btn">立即登录</button>
 		    </div>-->
-		    <!--已经登录之后无订单的页面-->
-		    <div class="dd-box">
-		    	<img src="images/order.png" alt="" />
-		    	<h4>近一个月无订单记录</h4>
-		    	<p>快去下单哦！</p>
-		    </div>
+			<!--已经登录之后无订单的页面-->
+			<div class="dd-wrap">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a class="order-ok-list">
+							<div class="order-ok-list-o">
+								<span class="bl-m-text">商家已接单</span>
+								<span class="g-s-text">2分钟前</span>
+							</div>
+							<div class="order-ok-list-t border-line">
+								<div class="order-img"><img src="images/list1.webp" /></div>
+								<div class="order-info">
+									<h4 class="border-line">老振苏州汤面馆<span class="mui-icon mui-icon-arrowright g-s-text"></span></h4>
+									<p>特色苏州灌汤包<span class="mui-pull-right">x1</span></p>
+									<p>红烧肉盖饭<span class="mui-pull-right">x1</span></p>
+									<p>回锅肉盖饭<span class="mui-pull-right">x1</span></p>
+									<p span class="mui-pull-right">共5份，实付<span class="d-m-text">￥55.4</span></p>
+								</div>
+							</div>
+							<div class="order-ok-list-tt">
+								<button type="button" class="mui-btn mui-btn-primary mui-btn-outlined mui-pull-right">确认送达</button>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript">

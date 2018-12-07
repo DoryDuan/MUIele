@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			.address-btn {
+				color: #3199E8;
+				position: absolute;
+				bottom: 0px;
+				width: 100%;
+				left: 0;
+				border: none;
+				border-radius: 3px;
+			}
+			.address-btn .address-btn-icon {
+				vertical-align: middle;
+				margin-top: -5px;
+			}
+			.dd-box-ok .address-list h5{
+				font-weight: bold;
+			}
+			.dd-box-ok .address-list h5 span:nth-child(2){
+				margin: 0 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">收货地址</h1>
+		</header>
+		<div class="mui-content">
+			<!--登录后没有地址-->
+			<div class="dd-box">
+				<img src="images/order.png" />
+				<h4>没有收货地址</h4>
+				<p>点击下方按钮新增</p>
+				<button class="address-btn"><span class="mui-icon mui-icon-plusempty address-btn-icon"></span>&nbsp;新增地址</button>
+			</div>
+			<!--登录后有地址-->
+			<!--<div class="dd-box-ok">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right address-list">
+							<h5 class="d-m-text">
+								<span>Dory</span>
+								<span>女士</span>
+								<span>13028812506</span>
+							</h5>
+							<p>杭州市余杭区余杭街道温莎郡2幢1902</p>
+						</a>
+					</li>
+				</ul>
+			</div>-->
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

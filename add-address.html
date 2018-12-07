@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			.add-address-div,.add-address-div input,.add-address-div textarea{
+				font-size: 15px;
+			}
+			.add-address-div input[type="radio"]{
+				margin-top: 4px;
+			}
+			.add-address-div input[type="radio"]::before{
+				font-size: 20px;
+			}
+			.add-address-div{
+				
+			}
+			.add-address-btn-wrap{
+				padding-left: 15px;
+				padding-right: 15px;
+			}
+			.add-address-btn{
+				width: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">新增地址</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="add-address-div">
+		    	<form class="mui-input-group">
+		    	    <div class="mui-input-row">
+		    	        <label>联系人</label>
+		    	        <input type="text" class="mui-input-clear" placeholder="你的姓名">
+		    	    </div>
+		    	   <div class="mui-input-row mui-radio">
+						<label>先生</label>
+						<input name="radio1" type="radio">
+					</div>
+					<div class="mui-input-row mui-radio">
+						<label>女士</label>
+						<input name="radio1" type="radio">
+					</div>
+		    	    <div class="mui-input-row">
+		    	        <label>联系电话</label>
+		    	        <input type="text" class="mui-input-clear" placeholder="你的手机号">
+		    	    </div>
+		    	    <div class="mui-input-row">
+		    	        <label>收货地址</label>
+		    	        <input type="text" class="mui-input-clear" placeholder="小区/公司/学校">
+		    	    </div>
+		    	     <div>
+		    	        <textarea placeholder="详细地址"></textarea>
+		    	    </div>
+		    	</form>
+		    	<div class="public-margin-top add-address-btn-wrap">
+		    		<botton class="mui-btn public-g-btn add-address-btn">确定</botton>
+		    	</div>
+		    </div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/castapp.js"></script>
+		<script type="text/javascript">
+			//()可填参数true(ios状态栏颜色为黑色文字),false(ios状态栏颜色为白色文字)
+			castapp.init(false);
+		</script>
+	</body>
+
+</html>
