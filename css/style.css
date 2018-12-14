@@ -15,6 +15,10 @@
 	color:#07C167;
 	font-size: 20px;
 }
+.gr-m-text{
+	color:#07C167;
+	font-size: 15px;
+}
 .gr-s-text{
 	color:#07C167;
 	font-size: 13px;
@@ -388,27 +392,31 @@
 	display: flex;
 	justify-content: space-between;
 }
-.home-div .home-dev-top .home-dev-top-l{
-	display: flex;
-}
-.home-div .home-dev-top .home-dev-top-l .home-dev-top-phone{
-	font-size: 18px;
-    vertical-align: middle;
-    margin-top: 1px;
-}
+
 
 .home-div .home-dev-top .home-dev-top-l img{
 	width:60px;
 	border-radius: 50%;
 	margin-right:10px;
 }
-.home-div .home-dev-top .home-dev-top-l .home-dev-top-l-info{
+.home-div .home-dev-top .home-dev-top-r{
+	display: flex;
+	flex: 1;
+	justify-content: space-between;
+}
+.home-div .home-dev-top .home-dev-top-r>span{
+	align-self: center;
+}
+.home-div .home-dev-top .home-dev-top-r .home-dev-top-phone{
+	font-size: 18px;
+    vertical-align: middle;
+    margin-top: 1px;
+}
+.home-div .home-dev-top .home-dev-top-r .home-dev-top-l-info{
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
-}
-.home-div .home-dev-top .home-dev-top-r{
-	align-self: center;
+	flex: 1;
 }
 .home-money{
 	display: flex;

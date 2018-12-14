@@ -19,7 +19,9 @@
 		    <div class="home-div">
 		    	<div class="home-dev-top">
 		    		<div class="home-dev-top-l">
-		    			<div><img src="images/tx.png" style="vertical-align: top;" alt="" /></div>
+		    			<img src="images/tx.png" style="vertical-align: top;" alt="" />
+		    		</div>
+		    		<div class="home-dev-top-r" id="login_event">
 		    			<!--登录前-->
 		    			<div class="home-dev-top-l-info">
 		    				<h4>登录/注册</h4>
@@ -33,8 +35,6 @@
 		    					<span class="b-s-text">13028812506</span>
 		    				</div>
 		    			</div>-->
-		    		</div>
-		    		<div class="home-dev-top-r">
 		    			<span class="mui-icon mui-icon-arrowright b-m-text"></span>
 		    		</div>
 		    	</div>
@@ -110,8 +110,15 @@
 		    </div>
 		</div>
 		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/castapp.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			castapp.init(false);
+			mui("#login_event")[0].addEventListener('tap',function(){
+				mui.openWindow({
+					url:'login.html',
+					id:'login'
+				})
+			})
 		</script>
 	</body>
 

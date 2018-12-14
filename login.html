@@ -14,31 +14,98 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">登录</h1>
 		</header>
-		<div class="mui-content">
+		<div class="mui-content" id="login">
 			<div class="public-margin-top">
-				<form class="mui-input-group">
+				<form class="mui-input-group" action="javascript:;">
 					<div class="mui-input-row">
-						<input type="text" class="mui-input-clear" placeholder="手机">
+						<input type="text" class="mui-input-clear" placeholder="请输入手机号" v-model="phone">
 					</div>
 					<div class="mui-input-row">
-						<input type="password" class="mui-input-password" placeholder="密码">
+						<input type="password" class="mui-input-password" placeholder="请输入6-16位字母+数字密码" v-model="pwd">
 						<!--<input type="password" class="mui-input-clear" placeholder="密码">-->
 					</div>
 				</form>
 				<div style="padding:0 15px" class="public-margin-top">
-					<button type="button" class="mui-btn mui-btn-success public-g-btn btn-block">登&nbsp;录</button>
+					<button type="button" class="mui-btn mui-btn-success public-g-btn btn-block" @tap="login" :disabled="isDisable">登&nbsp;录</button>
 				</div>
-				<div style="padding: 0 15px;">
-					<button type="button" class="mui-btn-link mui-pull-left link-btn public-margin-top" style="padding: 0;right: 0;">忘记密码?</button>
-					<button type="button" class="mui-btn-link mui-pull-right link-btn public-margin-top" style="padding: 0;right: 0;">立即注册</button>
+				<div class="public-margin-top" style="padding: 0 15px;">
+					<button type="button" class="mui-btn-link mui-pull-left link-btn" style="padding: 0;right: 0;" @tap="forgetPwd">忘记密码?</button>
+					<button type="button" class="mui-btn-link mui-pull-right link-btn" style="padding: 0;right: 0;" @tap="register">立即注册</button>
 				</div>
 			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/castapp.js"></script>
+		<script type="text/javascript" src="js/vue.min.js"></script>
+		<script type="text/javascript" src="js/mui-ajax.js"></script>
 		<script type="text/javascript">
 			//()可填参数true(ios状态栏颜色为黑色文字),false(ios状态栏颜色为白色文字)
 			castapp.init(false);
+			var login = new Vue({
+				el: '#login',
+				data: {
+					phone: "",
+					pwd: "",
+					auths: "",
+					isDisable: false
+				},
+				methods: {
+					forgetPwd: function() {
+						mui.openWindow({
+							url: 'reset-code.html',
+							id: 'reset-code'
+						})
+					},
+					register: function() {
+						mui.openWindow({
+							url: 'register.html',
+							id: 'register'
+						})
+					},
+					login: function() {
+						var _this = this,
+							data;
+						if(!_this.phone) {
+							mui.toast("手机号不能为空");
+						} else if(!(/^1[34578]\d{9}$/.test(_this.phone))) {
+							mui.toast("手机号格式不正确");
+						} else if(!_this.pwd) {
+							mui.toast("密码不能为空");
+						} else if(!(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/.test(_this.pwd))) {
+							mui.toast("密码为6~16字母+数字");
+						} else {
+							_this.isDisable = true
+							//发送登录请求
+							//请求参数
+							var options = {
+								url: '/login',
+								type: 'post',
+								data: {
+									'identityType': 'mobile',
+									'identifier': _this.phone,
+									'credential': _this.pwd
+								},
+								successFn: _successLogin
+							}
+							muiRequest(options);
+						}
+					}
+				}
+			});
+			function _successLogin(data){
+				login.isDisable = false;
+				mui.toast(data.msg);
+				if(data.ret === 1) {
+					//将用户信息存到storage里面
+					plus.storage.setItem('userInfo',data.data);
+					//跳转到首页
+					mui.openWindow({
+						id: 'takeaway',
+						url: 'takeaway.html'
+					});
+				} else {
+				}
+			}
 		</script>
 	</body>
 

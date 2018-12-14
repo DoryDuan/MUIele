@@ -7,47 +7,29 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<link href="css/style.css" rel="stylesheet" />
-		<style>
-			.register-sigin{
-				top:7px!important;
-				left: 15px!important;
-			}
-			.register-sigin:before{
-				font-size: 22px!important;
-			}
-			.register-sigin-text{
-				padding-left: 45px!important;
-				width: auto!important;
-			}
-		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">注册</h1>
+			<h1 class="mui-title">重置密码</h1>
 		</header>
 		<div class="mui-content">
-			<div class="public-margin-top" id='register'>
+			<div class="public-margin-top" id="reset-code">
 				<form class="mui-input-group" action="javascript:;">
 					<div class="mui-input-row" style="position: relative;">
 						<input type="text" placeholder="手机号" v-model="phone">
-						<button class="yzm-btn" @tap="handleGetCode">{{getCode.txt}}</button>
+						<button class="yzm-btn" @click="handleGetCode">{{getCode.txt}}</button>
 					</div>
 					<div class="mui-input-row">
 						<input type="text" class="mui-input-clear" placeholder="验证码" v-model="code">
 					</div>
-					<div class="mui-input-row">
-						<input type="password" class="mui-input-clear" placeholder="6-16位字母+数字密码" v-model="pwd">
-					</div>
+					<!--<div class="mui-input-row">
+						<input type="password" class="mui-input-clear" placeholder="设置新密码" v-model="pwd">
+					</div>-->
 				</form>
 				<div class="public-margin-top" style="padding:0 15px">
-					<button :disabled="isDisable" type="button" @tap="handleRegister" class="mui-btn mui-btn-success public-g-btn btn-block">注&nbsp;册</button>
-				</div>
-				<div class="mui-input-row mui-checkbox mui-left public-margin-top">
-					<label class="g-m-text register-sigin-text">注册协议</label>
-					<input name="checkbox" v-model="siginValue" value="sigin" type="checkbox" class="register-sigin">
-					<span class="bl-m-text check-sign" @tap="agreement">查看</span>
+					<button type="button" class="mui-btn mui-btn-success public-b-btn btn-block" @tap="handleResetCode" :disabled="isDisable">下一步</button>
 				</div>
 			</div>
 		</div>
@@ -58,18 +40,16 @@
 		<script type="text/javascript">
 			//()可填参数true(ios状态栏颜色为黑色文字),false(ios状态栏颜色为白色文字)
 			castapp.init(false);
-			var register = new Vue({
-				el: '#register',
+			var resetCode = new Vue({
+				el: '#reset-code',
 				data: {
 					phone: "",
 					code: "",
-					pwd: "",
 					getCode: {
 						txt: '获取验证码',
 						disabled: false
 					},
-					isDisable:false,
-					siginValue:[]
+					isDisable:false
 				},
 				methods: {
 					handleGetCode: function() {
@@ -93,14 +73,14 @@
 								type: 'post',
 								data: {
 									'mobile': _this.phone,
-									'send_type': 1
+									'send_type': 2
 								},
 								successFn: _successGetCode
 							}
 							muiRequest(options);
 						}
 					},
-					handleRegister: function() {
+					handleResetCode: function() {
 						var _this = this;
 						if(!_this.phone) {
 							mui.toast("手机号不能为空");
@@ -110,33 +90,23 @@
 							mui.toast("验证码不能为空")
 						} else if(!(/^\d{6}$/.test(this.code))) {
 							mui.toast("验证码必须6位数字")
-						} else if(!_this.pwd) {
-							mui.toast("密码不能为空");
-						} else if(!(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/.test(_this.pwd))) {
-							mui.toast("密码为6~16字母+数字");
-						}else if(_this.siginValue.length==0){
-							mui.toast("请先选中注册协议")
-						}else{
+						} else{
 							_this.isDisable = true
 							//验证验证码
 							//请求参数
 							var options = {
-								url: '/verify/check',
+								url: '/retrieve',
 								type: 'post',
 								data: {
-									'mobile': _this.phone,
-									'send_type': 1
+									'identityType': 'mobile',
+									'identifier': _this.phone,
+									'verify': _this.code,
+									'retrieve': 1
 								},
 								successFn: _successValidateCode
 							}
 							muiRequest(options);
 						}
-					},
-					agreement:function(){
-						mui.openWindow({
-							id: 'agreement',
-							url: 'agreement.html'
-						});
 					}
 				}
 			});
@@ -148,46 +118,29 @@
 					var timer = setInterval(function() {
 						num--;
 						if(num < 1) {
-							register.getCode.txt = '获取验证码';
+							resetCode.getCode.txt = '获取验证码';
 							clearInterval(timer);
-							register.getCode.disabled = false;
+							resetCode.getCode.disabled = false;
 						} else {
-							register.getCode.txt = num + 's';
+							resetCode.getCode.txt = num + 's';
 						}
 					}, 1000)
 				} else {
-					register.getCode.disabled = false;
+					resetCode.getCode.disabled = false;
 				}
 			}
-			//点击注册按钮，验证码验证完成以后的回调函数
+			//点击下一步按钮，验证码验证完成以后的回调函数
 			function _successValidateCode(data) {
+				mui.toast(data.msg);
+				resetCode.isDisable =false;
 				if(data.ret === 1) {
 					//验证成功，发送注册请求
-					var options = {
-						url: '/register',
-						type: 'post',
-						data: {
-							'mobile': register.phone,
-							'password': register.pwd
-						},
-						successFn: _successRegister
-					}
-					muiRequest(options);
-				} else {
-					mui.toast(data.msg);
-				}
-			}
-			//注册完成以后的回调函数
-			function _successRegister(data) {
-				mui.toast(data.msg);
-				register.isDisable =false;
-				if(data.ret === 1) {
-					//将用户信息存到storage里面
-					plus.storage.setItem('userInfo',data.data);
-					//跳转到首页
 					mui.openWindow({
-						id: 'takeaway',
-						url: 'takeaway.html'
+						id: 'reset-password',
+						url: 'reset-password.html',
+						extras: {
+							phone: resetCode.phone
+						}
 					});
 				} else {
 				}
