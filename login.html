@@ -7,6 +7,43 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			.button-wrap {
+				display: flex;
+				justify-content: space-between;
+			}
+			
+			.other-login {
+				margin-top: 50px;
+				text-align: center;
+			}
+			
+			.other-login:after {
+				background-color: #ccc!important;
+				top: 0;
+			}
+			
+			.other-login p {
+				position: relative;
+				top: -10px;
+				background: #efeff4;
+				display: inline-block;
+				z-index: 1;
+				padding: 0 10px;
+			}
+			
+			.other-login-wx {
+				/*width: 45px;
+				height: 45px;*/
+				border-radius: 50%;
+				background: #efeff4;
+				padding: 10px;
+			}
+			
+			.other-login-wx img {
+				width: 26px;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -14,11 +51,11 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">登录</h1>
 		</header>
-		<div class="mui-content" id="login">
+		<div class="mui-content" id="login-content">
 			<div class="public-margin-top">
 				<form class="mui-input-group" action="javascript:;">
 					<div class="mui-input-row">
-						<input type="text" class="mui-input-clear" placeholder="请输入手机号" v-model="phone">
+						<input type="text" class="mui-input-clear" placeholder="请输入手机号" v-model.trim="phone">
 					</div>
 					<div class="mui-input-row">
 						<input type="password" class="mui-input-password" placeholder="请输入6-16位字母+数字密码" v-model="pwd">
@@ -28,9 +65,17 @@
 				<div style="padding:0 15px" class="public-margin-top">
 					<button type="button" class="mui-btn mui-btn-success public-g-btn btn-block" @tap="login" :disabled="isDisable">登&nbsp;录</button>
 				</div>
-				<div class="public-margin-top" style="padding: 0 15px;">
-					<button type="button" class="mui-btn-link mui-pull-left link-btn" style="padding: 0;right: 0;" @tap="forgetPwd">忘记密码?</button>
-					<button type="button" class="mui-btn-link mui-pull-right link-btn" style="padding: 0;right: 0;" @tap="register">立即注册</button>
+				<div class="public-margin-top button-wrap" style="padding: 0 15px;">
+					<button type="button" class="mui-btn-link link-btn" style="padding: 0;right: 0;" @tap="forgetPwd">忘记密码?</button>
+					<button type="button" class="mui-btn-link link-btn" style="padding: 0;right: 0;" @tap="register">立即注册</button>
+				</div>
+			</div>
+			<div class="other-login border-line">
+				<p>第三方账号直接登录</p>
+				<div>
+					<button @click='loginWx' class="other-login-wx">
+						 <img src="images/icon-wx.png" class="icon-wx">
+					</button>
 				</div>
 			</div>
 		</div>
@@ -42,12 +87,13 @@
 			//()可填参数true(ios状态栏颜色为黑色文字),false(ios状态栏颜色为白色文字)
 			castapp.init(false);
 			var login = new Vue({
-				el: '#login',
+				el: '#login-content',
 				data: {
 					phone: "",
 					pwd: "",
 					auths: "",
-					isDisable: false
+					isDisable: false,
+					wxLoginObj: null
 				},
 				methods: {
 					forgetPwd: function() {
@@ -89,22 +135,107 @@
 							}
 							muiRequest(options);
 						}
+					},
+					loginWx: function() {
+						var _this = this;
+						if(!_this.wxLoginObj.authResult) {
+							_this.wxLoginObj.login(
+								function(result) {
+									plus.nativeUI.toast("登录认证成功！");
+									_this.wxLoginObj.getUserInfo( function(e){
+										console.log(JSON.stringify(_this.wxLoginObj));
+										loginIde();
+									}, function(e){
+										plus.nativeUI.toast( "获取用户信息失败："+e.message+" - "+e.code );
+									} );
+								},
+								function(e) {
+									plus.nativeUI.toast('登录认证失败！');
+									return;
+								}
+							);
+						} else {
+							plus.nativeUI.toast('已经登录认证！');
+							loginIde();
+						}
 					}
 				}
 			});
-			function _successLogin(data){
+			mui.plusReady(function() {
+				plus.oauth.getServices(function(services) {
+					for(k in services) {
+						if(services[k].id == 'weixin') {
+							login.wxLoginObj = services[k];
+						}
+					}
+				}, function(e) {
+					plus.nativeUI.toast("获取登录授权认证服务列表失败：" + e.message + " - " + e.code);
+				});
+			})
+			//点击登录按钮成功以后的回调
+			function _successLogin(data) {
 				login.isDisable = false;
 				mui.toast(data.msg);
 				if(data.ret === 1) {
 					//将用户信息存到storage里面
-					plus.storage.setItem('userInfo',data.data);
-					//跳转到首页
-					mui.openWindow({
-						id: 'takeaway',
-						url: 'takeaway.html'
-					});
-				} else {
+					plus.storage.setItem('u_id', data.data.id.toString())
+					plus.storage.setItem('token', data.data.token);
+					plus.storage.setItem('mobile', data.data.mobile);
+					//					plus.storage.setItem('userInfo',data.data);
+					
+					//调用用户信息
+//					var home = plus.webview.getWebviewById('home')
+//					mui.fire(home,'get_user',{});
+					
+					//展示首页
+					var indexWebview = plus.webview.getLaunchWebview()
+					mui.fire(indexWebview,'gohome',{})
+					indexWebview.show()
+				} else {}
+			}
+			//登录认证成功或者已经进行登录认证,向后台提交用户信息
+			function loginIde(){
+				var authResult = login.wxLoginObj.authResult;
+				var openid = authResult.openid,
+					access_token = authResult.access_token,
+					id = login.wxLoginObj.id;
+				var options = {
+					url: '/weixin/userinfo',
+					type: 'get',
+					data: {
+						'openid': openid,
+						'access_token': access_token,
+						'type': id
+					},
+					successFn: _successLoginWx
 				}
+				muiRequest(options);
+			}
+			//点击微信登录成功以后的回调
+			function _successLoginWx(data) {
+				console.log(JSON.stringify(data));
+				console.log(JSON.stringify(login.wxLoginObj));
+				var userInfo = login.wxLoginObj.userInfo,
+					authResult = login.wxLoginObj.authResult;
+				var wxName = userInfo.nickname, 
+					wxImg = userInfo.headimgurl,
+					openid = authResult.openid,
+					access_token = authResult.access_token,
+					id = login.wxLoginObj.id;
+				if(data.ret === 1) {
+					//手机绑定页面
+					mui.openWindow({
+						id: 'band-phone',
+						url: 'band-phone.html',
+						extras:{
+					        'wxName':wxName,
+					        'wxImg':wxImg,
+					        'openid':openid,
+					        'access_token':access_token,
+					        'ids':id
+					    }
+					});
+				} else {}
 			}
 		</script>
 	</body>

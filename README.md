@@ -13,6 +13,7 @@ ajax全局调用封装
 [jquery Ajax 全局调用封装](https://bbs.csdn.net/topics/330015234)
 
 微信登录
+[appid的获取](https://zhidao.baidu.com/question/432747476143089804.html)
 [微信登录资料1](http://www.hcoder.net/course/info_240.html)
 [微信登录资料2](http://ask.dcloud.net.cn/article/12624)
 [微信登录资料3](http://ask.dcloud.net.cn/article/192)

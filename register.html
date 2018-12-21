@@ -183,7 +183,10 @@
 				register.isDisable =false;
 				if(data.ret === 1) {
 					//将用户信息存到storage里面
-					plus.storage.setItem('userInfo',data.data);
+					plus.storage.setItem('u_id', data.data.id.toString())
+					plus.storage.setItem('token', data.data.token);
+					plus.storage.setItem('mobile', data.data.mobile);
+//					plus.storage.setItem('userInfo',data.data);
 					//跳转到首页
 					mui.openWindow({
 						id: 'takeaway',

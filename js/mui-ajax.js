@@ -1,7 +1,7 @@
 var BASE_URL='http://115.236.33.6:3129';
 function muiRequest(options) {
 	var TIMEOUT = 10000;
-//	var token = plus.storage.getItem('userInfo').token || '';
+//	var token = plus.storage.getItem('token') || '';
 	var token = ''
 	options.successFn = options.successFn || function() {};
 //	options.errorFn = options.errorFn || function() {};

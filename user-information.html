@@ -30,7 +30,7 @@
 				</li>
 			</ul>
 			<ul class="mui-table-view public-margin-top">
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell" id="reset_pwd">
 					<a class="mui-navigate-right">
 						<span>更改密码</span>
 					</a>
@@ -40,6 +40,13 @@
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript">
 			mui.init()
+			//更改密码
+			mui("#reset_pwd")[0].addEventListener('tap',function(){
+				mui.openWindow({
+					url:'reset-password.html',
+					id:'reset_password'
+				})
+			})
 		</script>
 	</body>
 
