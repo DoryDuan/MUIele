@@ -7,6 +7,98 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<link href="css/style.css" rel="stylesheet" />
+		<link href="css/cropper.css" rel="stylesheet" />
+		<style>
+			/*#cropper-example-1 {
+				background-color: #000000;
+				height: 93%;
+				width: 100%;
+				position: absolute;
+			}
+			
+			#quxiao,
+			#xuanzhuan,
+			#xuanqu {
+				font-size: 20px;
+			}
+			
+			.divbut {
+				width: 100%;
+				text-align: center;
+				position: fixed;
+				z-index: 2;
+				bottom: 0px;
+				background-color: #00000 !important;
+				height: 7.5%;
+				line-height: 50px;
+			}
+			
+			.divbut>div:first-child {
+				float: left;
+				width: 20%;
+			}
+			
+			.divbut>div:last-child {
+				float: right;
+				width: 20%;
+			}
+			
+			img#im {
+				height: 100%;
+				width: 100%;
+			}
+			
+			.simpleCropper {
+				position: fixed;
+				top: 0;
+				z-index: 11;
+				width: 100%;
+				height: 100%;
+				background-color: #00000 !important;
+			}
+			
+			.icon-queding {
+				color: #35d97a;
+			}
+			
+			.mui-btn {
+				border: none !important;
+				font-size: 14px !important;
+			}
+			
+			.mui-btn-blue {
+				background-color: transparent !important;
+				color: #04BE02
+			}*/
+			
+			.box{
+				position: fixed;
+				top: 0;
+				bottom: 51px;
+				left: 0;
+				right: 0;
+				z-index: 999;
+			}
+			.box img{
+				width: 100%;
+			}
+			.box .btn-wrap{
+				position: fixed;
+				bottom: 0;
+				width: 100%;
+				background: #efeff4;
+				display: flex;
+				justify-content: space-between;
+			}
+			.box .btn-wrap .cancel{
+				color: #666;
+				padding: 15px 15px;
+			}
+			.box .btn-wrap .confirm{
+				color: #3492E9;
+				padding: 15px 15px;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -14,39 +106,314 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">用户信息</h1>
 		</header>
-		<div class="mui-content user-info">
+		<div class="mui-content user-info" id="user_info">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
+					<a class="mui-navigate-right" @tap="getUserImg">
 						<span style="line-height: 30px;">头像</span>
-						<img src="images/tx.png" class="user-img mui-pull-right" alt="" />
+						<img :src="userImg" class="user-img mui-pull-right" alt="" />
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
+					<a class="mui-navigate-right" @tap="showUserName">
 						<span>用户名</span>
-						<span class="g-s-text mui-pull-right" style="margin-right: 20px;">我的名字</span>
+						<span class="g-s-text mui-pull-right" style="margin-right: 20px;">{{userName}}</span>
 					</a>
 				</li>
 			</ul>
 			<ul class="mui-table-view public-margin-top">
 				<li class="mui-table-view-cell" id="reset_pwd">
-					<a class="mui-navigate-right">
+					<a class="mui-navigate-right" @tap="resetPassword">
 						<span>更改密码</span>
 					</a>
 				</li>
 			</ul>
+			<!--修改用户名弹框-->
+			<div class="mui-popup mui-popup-in" v-if="userNameShow">
+				<div class="mui-popup-inner">
+					<div class="mui-popup-title">用户名</div>
+					<div class="mui-popup-text">
+						<div class="mui-input-row">
+							<input type="text" v-model="mUserName">
+						</div>
+					</div>
+				</div>
+				<div class="mui-popup-buttons">
+					<span class="mui-popup-button g-m-text" @tap="userNameShow=false">取消</span>
+					<span class="mui-popup-button mui-popup-button-bold gr-m-text" @tap="modifyUserName">确定</span>
+				</div>
+			</div>
+			<div class="mui-popup-backdrop mui-active" v-if="userNameShow"></div>
+			<!--头像裁剪-->
+			<div class="box" v-show="cutShow">
+			  <img id="image" src="" style="display: none;">
+			  <div class="btn-wrap">
+			  	<div class="cancel" @tap="quxiao">取消</div>
+			  	<div class="confirm" @tap="xuanqu">确认</div>
+			  </div>
+			</div>
+			<!--<div class="simpleCropper" v-show="simpleCropper">
+				<div id="cropper-example-1" class="mui-hidden">
+					<img id="im" alt="Picture" src="" />
+				</div>
+				<div class="divbut">
+					<div>
+						<p id="quxiao" class="iconfont icon-quxiao" @click="quxiao">取消</p>
+					</div>
+					<div>
+						<p id="xuanqu" class="iconfont icon-queding" @click="xuanqu">确认</p>
+					</div>
+				</div>
+				<img src="" alt="" class="mui-hidden" id="im_exif" />
+			</div>-->
 		</div>
 		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/vue.min.js"></script>
+		<script type="text/javascript" src="js/mui-ajax.js"></script>
+		<script type="text/javascript" src="js/jquery-1.9.min.js"></script>
+		<script type="text/javascript" src="js/cropper.js"></script>
+		<script type="text/javascript" src="js/jquery-cropper.min.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init({
+				beforeback: function() {　　
+					var opener = plus.webview.currentWebview().opener();
+					mui.fire(opener, 'user_info_change', {
+						userName: userInfo.userName,
+					});
+					return true;
+				}
+			})
+			//获取user_id
+			var user_id
+			mui.plusReady(function() {
+				user_id = plus.storage.getItem('u_id');
+				getUserInfo(user_id);
+			})
 			//更改密码
-			mui("#reset_pwd")[0].addEventListener('tap',function(){
+			mui("#reset_pwd")[0].addEventListener('tap', function() {
 				mui.openWindow({
-					url:'reset-password.html',
-					id:'reset_password'
+					url: 'reset-password.html',
+					id: 'reset_password'
 				})
 			})
+			var userInfo = new Vue({　　
+				el: "#user_info",
+				data: {
+					userImg: '',
+					userName: '',
+					cutShow:false,
+					userNameShow:false,
+					mUserName:'',
+//					simpleCropper: false
+				},
+				methods: {
+					getUserImg: function() {
+						if(mui.os.plus) {
+							var a = [{
+								title: "拍照"
+							}, {
+								title: "从手机相册选择"
+							}];
+							plus.nativeUI.actionSheet({
+								title: "修改头像",
+								cancel: "取消",
+								buttons: a
+							}, function(b) {
+								switch(b.index) {
+									case 0:
+										break;
+									case 1:
+										getImage();
+										break;
+									case 2:
+										galleryImg();
+										break;
+									default:
+										break
+								}
+							})
+						}
+					},
+					resetPassword: function() {
+						mui.openWindow({
+							url: 'reset-code.html',
+							id: 'reset-code'
+						})
+					},
+					//头衔裁剪取消操作
+					quxiao: function() {
+						this.cutShow = false;
+						//销毁cropper并从图像中删除整个cropper
+						$('#image').cropper('destroy');
+					},
+					//头像裁剪确认操作
+					xuanqu: function() {
+						plus.nativeUI.showWaiting();
+						//'getCroppedCanvas'画一张剪裁的图片
+						var canvas = $("#image").cropper('getCroppedCanvas');
+						//使用canvas toDataURL方法把图片转换为base64格式,第二个参数是质量
+						var data = canvas.toDataURL("image/jpeg", 1.0);
+						var imgDatas = data.split("data:image/jpeg;base64,")[1];
+						var options = {
+							url: '/user/edit/userinfo',
+							type: 'post',
+							data: {
+								'user_id': user_id,
+								'avatar': imgDatas,
+								'type': 'avatar'
+							},
+							successFn: _successSubmitUserInfo
+						}
+						muiRequest(options);
+					},
+					showUserName: function(){
+						this.userNameShow = true;
+						this.mUserName = this.userName;
+					},
+					modifyUserName: function(){
+						plus.nativeUI.showWaiting();
+						var options = {
+							url: '/user/edit/userinfo',
+							type: 'post',
+							data: {
+								'user_id': user_id,
+								'nickname': this.mUserName
+							},
+							successFn: _successModifyUserInfo
+						}
+						muiRequest(options);
+					}
+				}
+			})
+			//获取用户信息
+			function getUserInfo(user_id){
+				plus.nativeUI.showWaiting();
+				var options = {
+					url: '/user/get/userinfo',
+					type: 'post',
+					data: {
+						'user_id': user_id
+					},
+					successFn: _successGetUserInfo
+				}
+				muiRequest(options);
+			}
+			function _successGetUserInfo(data){
+				plus.nativeUI.closeWaiting();
+				if(data.ret === 1) {
+					userInfo.userName = data.data.nickname;
+					var avatar = data.data.avatar;
+					if(avatar.substr(0, 7).toLowerCase() == "http://") {
+						userInfo.userImg = data.data.avatar
+					} else {
+						userInfo.userImg =IMG_URL+ data.data.avatar;
+					}
+				}else{
+					mui.toast(data.msg);
+				}
+			}
+			//用户名更改
+			//用户名修改成功的回调
+			function _successModifyUserInfo(data) {
+				mui.toast(data.msg);
+				userInfo.userNameShow = false;
+				plus.nativeUI.closeWaiting();
+				if(data.ret==1){
+					//用户名更改成功
+					userInfo.userName=userInfo.mUserName;
+				}
+			}
+			//头像更改
+			//头像更改成功的回调
+			function _successSubmitUserInfo(data) {
+				//上传成功返回服务器图片地址
+				mui.toast(data.msg);
+				userInfo.cutShow = false;
+				plus.nativeUI.closeWaiting();
+				if(data.ret==1){
+					//重新加载用户信息数据
+					getUserInfo(user_id);
+					//销毁cropper并从图像中删除整个cropper
+					$('#image').cropper('destroy');
+				}
+			}
+			//拍照
+			function getImage() {
+				var c = plus.camera.getCamera();
+				c.captureImage(function(e) {
+					//e拍照或摄像操作保存的文件路径
+					//通过e获取目录对象或文件对象
+					plus.io.resolveLocalFileSystemURL(e, function(entry) {
+						var s = entry.toLocalURL() + "?version=" + new Date().getTime();
+						cutImage(s);
+						//变更大图预览的src
+					}, function(e) {
+						console.log("读取拍照文件错误：" + e.message);
+					});
+				}, function(s) {
+					console.log("error" + s);
+				}, {
+					filename: "_doc/head.jpg"
+				})
+			}
+			//访问相册
+			function galleryImg() {
+				plus.gallery.pick(function(a) {
+					//a选择的图片或视频文件路径
+					console.log(a)
+					plus.io.resolveLocalFileSystemURL(a, function(entry) {
+						plus.io.resolveLocalFileSystemURL("_doc/", function(root) {
+							root.getFile("head.jpg", {}, function(file) {
+								//文件已存在
+								file.remove(function() {
+									entry.copyTo(root, 'head.jpg', function(e) {
+											//e新的文件对象
+											var e = e.fullPath + "?version=" + new Date().getTime();
+											cutImage(e);
+										},
+										function(e) {
+											console.log('copy image fail:' + e.message);
+										});
+								}, function() {
+									console.log("delete image fail:" + e.message);
+								});
+							}, function() {
+								//文件不存在
+								entry.copyTo(root, 'head.jpg', function(e) {
+										var path = e.fullPath + "?version=" + new Date().getTime();
+										cutImage(path);
+									},
+									function(e) {
+										console.log('copy image fail:' + e.message);
+									});
+							});
+						}, function(e) {
+							console.log("get _www folder fail");
+						})
+					}, function(e) {
+						console.log("读取拍照文件错误：" + e.message);
+					});
+				}, function(a) {}, {
+					filter: "image"
+				})
+			};
+			//裁剪照片
+			function cutImage(path) {
+				console.log(path)
+				userInfo.cutShow = true;
+				$('#image').attr({'src': path})
+				//生成裁剪框
+				$('#image')[0].addEventListener("load", function() {
+					$('#image').cropper({
+				        aspectRatio: 1 / 1,
+				        viewMode:1,
+				        crop: function (e) {
+	//			            console.log(e);
+				        }
+				  	});
+				})
+			}
+			
 		</script>
 	</body>
 

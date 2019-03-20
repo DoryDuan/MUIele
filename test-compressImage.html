@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<button onclick="compressImage()">压缩图片</button><br/>
+		<button onclick="zoomImage()">缩放图片</button><br/>
+		<button onclick="rotateImage()">旋转图片</button><br/>
+		<button onclick="clipImage()">裁剪图片</button><br/>
+		<button onclick="convertImage()">格式转换</button><br/>
+		<img src="" alt="" id="image">
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			function imageIsExist(url) {
+				plus.io.resolveLocalFileSystemURL(url, function(entry) {
+					plus.io.resolveLocalFileSystemURL("_doc/", function(root) {
+						root.getFile("head.jpg", {}, function(file) {
+							//文件已存在
+							file.remove(function() {
+								entry.copyTo(root, 'head.jpg', function(e) {
+										//e新的文件对象
+										var e = e.fullPath + "?version=" + new Date().getTime();
+										mui('#image')[0].src = e;
+									},
+									function(e) {
+										console.log('copy image fail:' + e.message);
+									});
+							}, function() {
+								console.log("delete image fail:" + e.message);
+							});
+						}, function() {
+							//文件不存在
+							entry.copyTo(root, 'head.jpg', function(e) {
+									var path = e.fullPath + "?version=" + new Date().getTime();
+									mui('#image')[0].src = path;
+								},
+								function(e) {
+									console.log('copy image fail:' + e.message);
+								});
+						});
+					}, function(e) {
+						console.log("get _www folder fail");
+					})
+				}, function(e) {
+					console.log("读取拍照文件错误：" + e.message);
+				});
+			}
+			//压缩图片
+			function compressImage() {
+				mui('#image')[0].src = '';
+				plus.zip.compressImage({
+						src: "images/ayyomqu4aw.jpg",
+						dst: "_doc/ayyomqu4aw.jpg",
+						overwrite: true,
+						quality: 20
+					},
+					function(event) {
+						imageIsExist(event.target)
+						alert("Compress success!");
+					},
+					function(error) {
+						alert("Compress error!");
+					});
+			}
+			//缩放图片
+			function zoomImage() {
+				mui('#image')[0].src = '';
+				plus.zip.compressImage({
+						src: "images/ayyomqu4aw.jpg",
+						dst: "_doc/ayyomqu4aw.jpg",
+						overwrite: true,
+						width: "50%" // 缩小到原来的一半
+					},
+					function(event) {
+						imageIsExist(event.target)
+						alert("Compress success!");
+					},
+					function(error) {
+						alert("Compress error!");
+					});
+			}
+			//旋转图片
+			function rotateImage() {
+				mui('#image')[0].src = '';
+				plus.zip.compressImage({
+						src: "images/ayyomqu4aw.jpg",
+						dst: "_doc/ayyomqu4aw.jpg",
+						overwrite: true,
+						rotate: 90 // 旋转90度
+					},
+					function(event) {
+						imageIsExist(event.target)
+						alert("Compress success!");
+					},
+					function(error) {
+						alert("Compress error!");
+					});
+			}
+			//裁剪图片
+			function clipImage() {
+				mui('#image')[0].src = '';
+				plus.zip.compressImage({
+						src: "images/ayyomqu4aw.jpg",
+						dst: "_doc/ayyomqu4aw.jpg",
+						overwrite: true,
+						clip: {
+							top: "25%",
+							left: "25%",
+							width: "50%",
+							height: "50%"
+						} // 裁剪图片中心区域
+					},
+					function(event) {
+						imageIsExist(event.target)
+						alert("Compress success!");
+					},
+					function(error) {
+						alert("Compress error!");
+					});
+			}
+			//格式转换
+			function convertImage() {
+				mui('#image')[0].src = '';
+				plus.zip.compressImage({
+						src: "images/ayyomqu4aw.jpg",
+						dst: "_doc/ayyomqu4aw.jpg",
+						overwrite: true,
+						format: "png" // 将jpg转换成png格式
+					},
+					function(event) {
+						imageIsExist(event.target)
+						alert("Compress success!");
+					},
+					function(error) {
+						alert("Compress error!");
+					});
+			}
+		</script>
+	</body>
+
+</html>

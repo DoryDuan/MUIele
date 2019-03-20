@@ -1,8 +1,10 @@
-var BASE_URL='http://115.236.33.6:3129';
+var IMG_URL = 'http://115.236.33.6:3130';
+var BASE_URL='http://115.236.33.6:3130';
 function muiRequest(options) {
-	var TIMEOUT = 10000;
-//	var token = plus.storage.getItem('token') || '';
-	var token = ''
+	mui.plusReady(function() {
+		var TIMEOUT = 10000;
+	var token = plus.storage.getItem('token') || '';
+//	var token = ''
 	options.successFn = options.successFn || function() {};
 //	options.errorFn = options.errorFn || function() {};
     mui.ajax(BASE_URL+options.url,{
@@ -18,7 +20,7 @@ function muiRequest(options) {
             options.successFn(data);
         },
         error: function(xhr,type,errorThrown){
-        	console.log(xhr)
+        	console.log(JSON.stringify(xhr))
             if(xhr.status == 401) {
 				mui.openWindow({
 					id: 'login',
@@ -29,4 +31,5 @@ function muiRequest(options) {
 			}
         }
     });
+	})
 }

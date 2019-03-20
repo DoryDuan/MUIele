@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/cropper.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<div class="box">
+		  <img id="image" src="images/ayyomqu4aw.jpg">
+		</div>
+		<div class="cavans"></div>
+		<button id="getCroppedCanvas">getCroppedCanvas</button>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/jquery-1.9.min.js"></script>
+		<script type="text/javascript" src="js/cropper.js"></script>
+		<script type="text/javascript" src="js/jquery-cropper.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+//			var cropper = new Cropper(image, {
+//		        aspectRatio: 1 / 1,
+//		        viewMode:1,
+//		        crop: function (e) {
+//		            console.log(e.detail.x);
+//		            console.log(e.detail.y);
+//		            console.log(e.detail.width);
+//		            console.log(e.detail.height);
+//		            console.log(e.detail.rotate);
+//		            console.log(e.detail.scaleX);
+//		            console.log(e.detail.scaleY);
+//		        }
+//	    	});
+
+			$('#image').cropper({
+		        aspectRatio: 16 / 9,
+		        viewMode:1,
+		        crop: function (e) {
+		            console.log(e);
+		        }
+	    	});
+	    	
+	    	$("#getCroppedCanvas").on("click", function () {
+		        console.log($('#image').cropper('getCroppedCanvas'));;
+		        var cas=$('#image').cropper('getCroppedCanvas');
+		        var base64url=cas.toDataURL('image/jpeg');
+		        cas.toBlob(function (e) {
+		            console.log(e);  //生成Blob的图片格式
+		        })
+		        console.log(base64url); //生成base64图片的格式
+		        $('.cavans').html(cas)  //在body显示出canvas元素
+		    })
+		</script>
+	</body>
+
+</html>

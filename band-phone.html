@@ -123,7 +123,7 @@
 					bandPhone.getCode.disabled = false;
 				}
 			}
-			//点击立即登录按钮，验证码验证完成以后，提交第三方信息
+			//点击立即登录按钮，验证码验证完成以后，提交第三方信息验证绑定手机号是否成功
 			function _successValidateCode(data) {
 				if(data.ret === 1) {
 					var options = {
@@ -143,19 +143,25 @@
 					bandPhone.isDisable =false;
 				}
 			}
-			//立即登录，登录成功的回调
+			//绑定手机号成功以后的回调
 			function _successInfo(data) {
 				if(data.ret === 1) {
-					var options = {
-						url: '/login',
-						type: 'post',
-						data: {
-							'identifier': bandPhone.openid,
-							'identityType': bandPhone.id
-						},
-						successFn: _successLogin
+					if(data.code == 111) {
+						//绑定手机号失败
+						mui.toast(data.msg);
+					}else{
+						//绑定手机号成功直接登录
+						var options = {
+							url: '/login',
+							type: 'post',
+							data: {
+								'identifier': bandPhone.openid,
+								'identityType': bandPhone.id
+							},
+							successFn: _successLogin
+						}
+						muiRequest(options);
 					}
-					muiRequest(options);
 				} else {
 					mui.toast(data.msg);
 					bandPhone.isDisable =false;

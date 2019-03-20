@@ -29,7 +29,7 @@ function login(id) {
 			console.log(JSON.stringify(auth.authResult));
 			
 			//先判断是否已经注册
-			mui.post('http://server-name/login/check_user.php', {
+			mui.post('http://se rver-name/login/check_user.php', {
 				access_token: auth.authResult.access_token
 			}, function(data) {
 				//跟login页面_successLogin函数处理差不多

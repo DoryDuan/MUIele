@@ -11,58 +11,58 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav home-bar">
-		    <!--<a class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<!--<a class="mui-icon mui-icon-left-nav mui-pull-left"></a>
 		    <a class="mui-icon mui-icon-settings mui-pull-right"></a>-->
-		    <h1 class="mui-title">我的</h1>
+			<h1 class="mui-title">我的</h1>
 		</header>
 		<div class="mui-content" id="home">
-		    <div class="home-div">
-		    	<!--登录前-->
-		    	<div class="home-dev-top" id="login_event">
-		    		<div class="home-dev-top-l">
-		    			<img src="images/tx.png" style="vertical-align: top;" alt="" />
-		    		</div>
-		    		<div class="home-dev-top-r">
-		    			<div class="home-dev-top-l-info">
-		    				<h4>登录/注册</h4>
-		    				<span class="b-s-text">登录后享受更多特权</span>
-		    			</div>
-		    			<span class="mui-icon mui-icon-arrowright b-m-text"></span>
-		    		</div>
-		    	</div>
-		    	<!--登录后-->
-		    	<div class="home-dev-top" style="display: none;" id="login_success">
-		    		<div class="home-dev-top-l">
-		    			<img :src="srcs" style="vertical-align: top;" alt=""/>
-		    		</div>
-		    		<div class="home-dev-top-r">
-		    			<div class="home-dev-top-l-info">
-		    				<h4>{{userName}}</h4>
-		    				<div>
-		    					<span class="mui-icon mui-icon-phone home-dev-top-phone"></span>
-		    					<span class="b-s-text">{{mobile}}</span>
-		    				</div>
-		    			</div>
-		    			<span class="mui-icon mui-icon-arrowright b-m-text"></span>
-		    		</div>
-		    	</div>
-		    	<!--登录前样式-->
-		    	<div class="home-money">
-		    		<div class="home-money-wrap">
-		    			<span class="mui-icon mui-icon-compose"></span>
-		    			<p class="dg-s-text">我的余额</p>
-		    		</div>
-		    		<div class="home-money-wrap">
-		    			<span class="mui-icon mui-icon-compose"></span>
-		    			<p class="dg-s-text">我的积分</p>
-		    		</div>
-		    		<div class="home-money-wrap">
-		    			<span class="mui-icon mui-icon-compose"></span>
-		    			<p class="dg-s-text">我的红包</p>
-		    		</div>
-		    	</div>
-		    	<!--登录后样式-->
-		    	<!--<div class="home-money">
+			<div class="home-div">
+				<!--登录前-->
+				<div class="home-dev-top" id="login_event" v-show="!ifShowUsers">
+					<div class="home-dev-top-l">
+						<img src="images/tx.png" style="vertical-align: top;" alt="" />
+					</div>
+					<div class="home-dev-top-r">
+						<div class="home-dev-top-l-info">
+							<h4>登录/注册</h4>
+							<span class="b-s-text">登录后享受更多特权</span>
+						</div>
+						<span class="mui-icon mui-icon-arrowright b-m-text"></span>
+					</div>
+				</div>
+				<!--登录后-->
+				<div class="home-dev-top" id="login_success" v-show="ifShowUsers">
+					<div class="home-dev-top-l">
+						<img :src="srcs" style="vertical-align: top;" alt="" />
+					</div>
+					<div class="home-dev-top-r">
+						<div class="home-dev-top-l-info">
+							<h4>{{userName}}</h4>
+							<div>
+								<span class="mui-icon mui-icon-phone home-dev-top-phone"></span>
+								<span class="b-s-text">{{mobile}}</span>
+							</div>
+						</div>
+						<span class="mui-icon mui-icon-arrowright b-m-text"></span>
+					</div>
+				</div>
+				<!--登录前样式-->
+				<div class="home-money">
+					<div class="home-money-wrap">
+						<span class="mui-icon mui-icon-compose"></span>
+						<p class="dg-s-text">我的余额</p>
+					</div>
+					<div class="home-money-wrap">
+						<span class="mui-icon mui-icon-compose"></span>
+						<p class="dg-s-text">我的积分</p>
+					</div>
+					<div class="home-money-wrap">
+						<span class="mui-icon mui-icon-compose"></span>
+						<p class="dg-s-text">我的红包</p>
+					</div>
+				</div>
+				<!--登录后样式-->
+				<!--<div class="home-money">
 		    		<div class="home-money-wrap">
 		    			<span class="o-b-text">0.00</span><span class="o-s-text">元</span>
 		    			<p class="dg-s-text">我的余额</p>
@@ -72,50 +72,50 @@
 		    			<p class="dg-s-text">我的积分</p>
 		    		</div>
 		    	</div>-->
-		    	<div class="home-list">
-		    		<!--输入mlist-->
-		    		<ul class="mui-table-view">
-		    		        <li class="mui-table-view-cell">
-		    		            <a class="mui-navigate-right">
-		    		            	<span class="mui-icon mui-icon-email list-l-icon"></span>
-		    		                <span class="d-m-text">我的地址</span>
-		    		            </a>
-		    		        </li>
-		    		        <li class="mui-table-view-cell">
-		    		            <a class="mui-navigate-right">
-		    		            	<span class="mui-icon mui-icon-email list-l-icon "></span>
-		    		                <span class="d-m-text">我的通知</span>
-		    		            </a>
-		    		        </li>
-		    		        <li class="mui-table-view-cell">
-		    		            <a class="mui-navigate-right">
-		    		            	<span class="mui-icon mui-icon-email list-l-icon"></span>
-		    		                <span class="d-m-text">积分商城</span>
-		    		            </a>
-		    		        </li>
-		    		   </ul>
-		    		    <ul class="mui-table-view">
-		    		        <li class="mui-table-view-cell">
-		    		            <a class="mui-navigate-right">
-		    		            	<span class="mui-icon mui-icon-email list-l-icon"></span>
-		    		                <span class="d-m-text">服务中心</span>
-		    		            </a>
-		    		        </li>
-		    		        <li class="mui-table-view-cell">
-		    		            <a class="mui-navigate-right">
-		    		            	<span class="mui-icon mui-icon-email list-l-icon"></span>
-		    		                <span class="d-m-text">我是商家</span>
-		    		            </a>
-		    		        </li>
-		    		        <li class="mui-table-view-cell">
-		    		            <a class="mui-navigate-right">
-		    		            	<span class="mui-icon mui-icon-email list-l-icon"></span>
-		    		                <span class="d-m-text">设置</span>
-		    		            </a>
-		    		        </li>
-		    		    </ul>
-		    	</div>
-		    </div>
+				<div class="home-list">
+					<!--输入mlist-->
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right">
+								<span class="mui-icon mui-icon-email list-l-icon"></span>
+								<span class="d-m-text">我的地址</span>
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right">
+								<span class="mui-icon mui-icon-email list-l-icon "></span>
+								<span class="d-m-text">我的通知</span>
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right">
+								<span class="mui-icon mui-icon-email list-l-icon"></span>
+								<span class="d-m-text">积分商城</span>
+							</a>
+						</li>
+					</ul>
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right">
+								<span class="mui-icon mui-icon-email list-l-icon"></span>
+								<span class="d-m-text">服务中心</span>
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right">
+								<span class="mui-icon mui-icon-email list-l-icon"></span>
+								<span class="d-m-text">我是商家</span>
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right" @tap="toSetting">
+								<span class="mui-icon mui-icon-email list-l-icon"></span>
+								<span class="d-m-text">设置</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/castapp.js"></script>
@@ -127,47 +127,88 @@
 			var home = new Vue({
 				el: '#home',
 				data: {
+					ifShowUsers:false,
 					srcs: '',
 					userName: '',
 					mobile: ''
 				},
 				methods: {
-					
+					toSetting: function(){
+						mui.openWindow({
+							url: 'setting.html',
+							id: 'setting'
+						})
+					}
 				}
 			});
-			mui.plusReady(function() {
-				user_id = plus.storage.getItem('u_id');
-				user_id = typeof user_id === "string" ? Number(user_id):''
-			})
 			//未登录，点击进入登录页面
-			mui("#login_event")[0].addEventListener('tap',function(){
+			mui("#login_event")[0].addEventListener('tap', function() {
 				mui.openWindow({
-					url:'login.html',
-					id:'login'
+					url: 'login.html',
+					id: 'login'
 				})
 			})
 			//已登录，点击进入用户信息页面
-			mui("#login_success")[0].addEventListener('tap',function(){
+			mui("#login_success")[0].addEventListener('tap', function() {
 				mui.openWindow({
-					url:'user-information.html',
-					id:'user_ information'
+					url: 'user-information.html',
+					id: 'user_ information'
 				})
 			})
 			//已登录获得用户信息
 			//请求参数
-			var options = {
-				url: '/user/get/userinfo',
-				type: 'post',
-				data: {
-					'user_id': user_id
-				},
-				successFn: _successGetUserInfo
-			}
-			muiRequest(options);
-			function _successGetUserInfo(data){
-				console.log(JSON.stringify(data));
+			mui.plusReady(function() {
+				user_id = plus.storage.getItem('u_id');
+				console.log(user_id)
+//				user_id = typeof user_id === "string" ? Number(user_id) : ''
+				if(user_id){
+					plus.nativeUI.showWaiting();
+						var options = {
+						url: '/user/get/userinfo',
+						type: 'post',
+						data: {
+							'user_id': user_id
+						},
+						successFn: _successGetUserInfo
+					}
+					muiRequest(options);
+				}
+				//监听登录成功获取用户信息
+				window.addEventListener('get_user', function(event) {
+					//直接可以使用event里面传过来的数据event.detail(传过来的数据没有头像)
+					user_id = plus.storage.getItem('u_id');
+					plus.nativeUI.showWaiting();
+						var options = {
+						url: '/user/get/userinfo',
+						type: 'post',
+						data: {
+							'user_id': user_id
+						},
+						successFn: _successGetUserInfo
+					}
+					muiRequest(options);
+				});
+				window.addEventListener('user_info_change', function(event) {
+					home.userName = event.detail.userName;
+				});
+			})
+			function _successGetUserInfo(data) {
+				plus.nativeUI.closeWaiting();
 				if(data.ret === 1) {
-				} else {}
+					//获取用户信息成功
+					if(data.data.avatar.substr(0, 7).toLowerCase() == "http://") {
+						home.srcs = data.data.avatar;
+					} else {
+						home.srcs = IMG_URL + data.data.avatar;
+					}
+					home.userName = data.data.nickname;
+					home.mobile = data.data.mobile;
+					//样式改变
+					home.ifShowUsers = true;
+				} else {
+					//获取用户信息失败
+					home.ifShowUsers = false;
+				}
 			}
 			
 		</script>

@@ -55,6 +55,53 @@
 			castapp.init(false);
 			var pathArray = ['takeaway.html','order.html','discover.html','home.html'];
 			castapp.tabBar(pathArray);
+			
+			mui.init({
+				statusBarBackground: '#f7f7f7'
+			});
+			var aniShow = "pop-in";
+			var _self;
+			//初始化，并预加载webview模式的选项卡			
+			function initTemplates(){
+				var token=plus.storage.getItem('token');
+				if(!token){
+					//没有token进入登录页面
+					mui.openWindow({
+						url: 'login.html',
+						id: 'login'
+					});
+				}else{
+					//有token进入首页
+//					castapp.tabBar(pathArray);
+				}
+			}
+			mui.plusReady(function(){
+				//仅支持竖屏显示
+				plus.screen.lockOrientation("portrait-primary");
+				//读取本地存储，检查是否为首次启动
+				var showGuide = plus.storage.getItem("lauchFlag");
+				if(showGuide){
+					//有值，说明已经显示过了，无需显示；
+					//关闭splash页面；
+					plus.navigator.closeSplashscreen();
+					plus.navigator.setFullscreen(false);
+					//初始化模板
+					initTemplates(); 
+				}else{
+					//显示启动导航
+					mui.openWindow({
+						id:'guide',
+						url:'guide.html',
+						show:{
+							aniShow:'none',
+//							duration:3000
+						},
+						waiting:{
+							autoShow:false
+						}
+					});
+				}
+			});
 		</script>
 	</body>
 </html>
